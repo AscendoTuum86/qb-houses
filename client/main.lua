@@ -496,11 +496,11 @@ end
 
 function HouseKeysMenu()
     ped = PlayerPedId();
-    MenuTitle = "Sleutels"
+    MenuTitle = "Keys"
     ClearMenu()
     QBCore.Functions.TriggerCallback('qb-houses:server:getHouseKeyHolders', function(holders)
         ped = PlayerPedId();
-        MenuTitle = "Sleutelhouders:"
+        MenuTitle = "Key Holders:"
         ClearMenu()
         if holders == nil or next(holders) == nil then
             QBCore.Functions.Notify("No key holders found..", "error", 3500)
@@ -510,7 +510,7 @@ function HouseKeysMenu()
                 Menu.addButton(holders[k].firstname .. " " .. holders[k].lastname, "optionMenu", holders[k]) 
             end
         end
-        Menu.addButton("Sluit Menu", "closeMenuFull", nil) 
+        Menu.addButton("Close Menu", "closeMenuFull", nil) 
     end, closesthouse)
 end
 
@@ -526,8 +526,8 @@ function optionMenu(citizenData)
     ped = PlayerPedId();
     MenuTitle = "What now?"
     ClearMenu()
-    Menu.addButton("Verwijder sleutel", "removeHouseKey", citizenData) 
-    Menu.addButton("Terug", "HouseKeysMenu",nil)
+    Menu.addButton("Remove house key", "removeHouseKey", citizenData) 
+    Menu.addButton("Back", "HouseKeysMenu",nil)
 end
 
 function removeHouseKey(citizenData)
@@ -587,6 +587,8 @@ function enterOwnedHouse(house)
         data = exports['qb-interior']:CreateFranklinShell(coords)
     elseif Config.Houses[house].tier == 7 then
         data = exports['qb-interior']:CreateFranklinAuntShell(coords)
+    elseif Config.House[house].tier == 8 then
+        data = exports['qb-interior']:CreateHotelFurnished(coords)
     end
 
     Citizen.Wait(100)
@@ -676,6 +678,8 @@ function enterNonOwnedHouse(house)
         data = exports['qb-interior']:CreateFranklinShell(coords)
     elseif Config.Houses[house].tier == 7 then
         data = exports['qb-interior']:CreateFranklinAuntShell(coords)
+    elseif Config.House[house].tier == 8 then
+        data = exports['qb-interior']:CreateHotelFurnished(coords)
     end
 
     houseObj = data[1]
@@ -847,7 +851,7 @@ function CreateInstuctionScaleform(scaleform)
     PushScaleformMovieFunction(scaleform, "SET_DATA_SLOT")
     PushScaleformMovieFunctionParameterInt(1)
     InstructionButton(GetControlInstructionalButton(1, 194, true))
-    InstructionButtonMessage("Sluit Camera")
+    InstructionButtonMessage("Close Camera")
     PopScaleformMovieFunctionVoid()
 
     PushScaleformMovieFunction(scaleform, "DRAW_INSTRUCTIONAL_BUTTONS")
