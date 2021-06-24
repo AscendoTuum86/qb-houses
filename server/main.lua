@@ -76,7 +76,7 @@ AddEventHandler('qb-houses:server:addGarage', function(house, coords)
 		takeVehicle = coords,
 	}
 	TriggerClientEvent("qb-garages:client:addHouseGarage", -1, house, garageInfo)
-	TriggerClientEvent('QBCore:Notify', src, "You have added a garage at: "..garageInfo.label)
+	TriggerClientEvent('QBCore:Notify', src, "You have added a garage: "..garageInfo.label)
 end)
 
 RegisterServerEvent('qb-houses:server:viewHouse')
@@ -101,7 +101,7 @@ AddEventHandler('qb-houses:server:buyHouse', function(house)
 	local bankBalance = pData.PlayerData.money["bank"]
 
 	if (bankBalance >= HousePrice) then
-				houseowneridentifier[house] = pData.PlayerData.steam
+		houseowneridentifier[house] = pData.PlayerData.steam
 		houseownercid[house] = pData.PlayerData.citizenid
 		housekeyholders[house] = {[1] = pData.PlayerData.citizenid}
 		QBCore.Functions.ExecuteSql(false, "INSERT INTO `player_houses` (`house`, `identifier`, `citizenid`, `keyholders`) VALUES ('"..house.."', '"..pData.PlayerData.steam.."', '"..pData.PlayerData.citizenid.."', '"..json.encode(housekeyholders[house]).."')")
@@ -438,7 +438,7 @@ AddEventHandler('qb-houses:server:giveHouseKey', function(target, house)
 			TriggerClientEvent('QBCore:Notify', tPlayer.PlayerData.source, 'You have the keys of '..Config.Houses[house].adress..' recieved!', 'success', 2500)
 		end
 	else
-		TriggerClientEvent('QBCore:Notify', src, 'Something went wrong try again!', 'error', 2500)
+		TriggerClientEvent('QBCore:Notify', src, 'Something went wrond try again!', 'error', 2500)
 	end
 end)
 
